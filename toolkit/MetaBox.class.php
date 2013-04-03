@@ -25,6 +25,7 @@ class MetaBox extends ModuleBase{
 
 		add_action('add_meta_boxes', array(&$this, 'RegisterMetaBoxes'));
 		add_action('save_post', array(&$this, 'SaveMetaValues'));
+		add_action('admin_enqueue_scripts', array(&$this, 'EnqueueScripts'));
 
 		parent::__construct();
 	}
@@ -40,7 +41,7 @@ class MetaBox extends ModuleBase{
 			}
 		}
 
-		//TODO: Kolla om det räcker med att enqueuea eventuella scripts här
+		
 	}
 	
 	/**
@@ -55,8 +56,14 @@ class MetaBox extends ModuleBase{
 		$metaBoxes =$this->config;
 		$metas = $metaBoxes[$type][$section];
 		foreach($metas as $metaName => $meta){
-			if(method_exists('MEtaBoxOutput', $meta['type'])){
+			if(method_exists('MetaBoxOutput', $meta['type'])){
 				$name = $type . '_' . preg_replace('/\s/', '_', $section) . '_' . $metaName;
+
+				//Added with validation
+				if(isset($meta['required']) && $meta['required'] === true){
+					$meta['class'] .= ' required';
+				}
+
 				call_user_func_array(array('MetaBoxOutput', $meta['type']), array($post, $name, $metaName, $meta));
 			}
 		}
@@ -106,7 +113,11 @@ class MetaBox extends ModuleBase{
 			}
 		}
 	}
-}
 
+	function EnqueueScripts(){
+        wp_enqueue_script('validate-form-js', THEME_URL . '/toolkit/js/validate.js', array('jquery'), '1.0', true);
+        wp_enqueue_style('validate-form-css', THEME_URL . '/toolkit/css/validate.css', false, '1.0'); 
+	}
+}
 
 ?>

@@ -22,7 +22,21 @@ class MetaBoxOutput {
                 if(!empty($options['label'])){
                         echo('<label for="' . $name . '">' . $options['label'] . '</label><br />');
                 }
-                echo('<input type="text" name="' . $name . '" id="' . $name . '" class="' . $options['class'] . '" value="' . $options['value'] . '" size="' . $options['size'] .'" style="' . $options['style'] .'" placeholder="' . $options['placeholder'] .'" />');
+                $attributes = array(
+                        'type' => 'text',
+                        'name' => $name,
+                        'id' => $name,
+                        'class' => $options['class'],
+                        'value' => $options['value'],
+                        'style' => $options['style'],
+                        'placeholder' => $options['placeholder'],
+                );
+
+                if(!empty($options['validate-pattern'])){
+                        $attributes['data-pattern'] = $options['validate-pattern'];
+                }
+
+                echo('<input' . MetaBoxOutput::_build_attributes_string($attributes) . ' />');
                 if(!empty($options['description'])){
                         echo('<br /><em>' . $options['description'] . '</em>');
                 }
@@ -44,7 +58,22 @@ class MetaBoxOutput {
                 if(!empty($options['label'])){
                         echo('<label for="' . $name . '">' . $options['label'] . '</label><br />');
                 }
-                echo('<textarea name="' . $name . '" id="' . $name . '" class="' . $options['class'] . '" rows="' . $options['rows'] .'" cols="' . $options['cols'] .'" style="' . $options['style'] .'" placeholder="' . $options['placeholder'] .'">' . $options['value'] . '</textarea>');
+
+                $attributes = array(
+                        'name' => $name,
+                        'id' => $name,
+                        'class' => $options['class'],
+                        'style' => $options['style'],
+                        'placeholder' => $options['placeholder'],
+                        'rows' => $options['rows'],
+                        'cols' => $options['cols']
+                );
+
+                if(!empty($options['validate-pattern'])){
+                        $attributes['data-pattern'] = $options['validate-pattern'];
+                }
+
+                echo('<textarea' . MetaBoxOutput::_build_attributes_string($attributes) . '>' . $options['value'] . '</textarea>');
                 if(!empty($options['description'])){
                         echo('<br /><em>' . $options['description'] . '</em>');
                 }
@@ -66,7 +95,15 @@ class MetaBoxOutput {
                 if(!empty($options['label'])){
                         echo('<label for="' . $name . '">' . $options['label'] . '</label><br />');
                 }
-                echo('<select  name="' . $name . '" id="' . $name . '" style="' . $options['style'] .'" class="' . $options['class'] . '">');
+
+                $attributes = array(
+                        'name' => $name,
+                        'id' => $name,
+                        'class' => $options['class'],
+                        'style' => $options['style'],
+                );
+
+                echo('<select' . MetaBoxOutput::_build_attributes_string($attributes) . '>');
 
                 if(MetaBoxOutput::_is_assoc($options['values'])){
                         foreach($options['values'] as $key => $value){
@@ -103,8 +140,22 @@ class MetaBoxOutput {
                 if(!empty($options['label'])){
                         echo('<label for="' . $name . '">' . $options['label']);
                 }
+
+                $attributes = array(
+                        'type' => 'checkbox',
+                        'name' => $name,
+                        'id' => $name,
+                        'class' => $options['class'],
+                        'style' => $options['style'],
+                        'value' => 'true',
+                );
+
+                if($options['value'] == 'true'){
+                        $attributes['checked'] = 'checked';
+                }
+
                 echo('<input type="hidden" name="' . $name . '" id="' . $name . '" value="false" />');
-                echo('<input type="checkbox" name="' . $name . '" id="' . $name . '" value="true" class="' . $options['class'] . '" style="' . $options['style'] .'" ' . (($options['value'] == 'true') ? ' checked="checked"' : '') . ' />');
+                echo('<input' . MetaBoxOutput::_build_attributes_string($attributes) . ' />');
                 echo('</label>');
                 if(!empty($options['description'])){
                         echo(' <em>' . $options['description'] . '</em>');
@@ -128,7 +179,21 @@ class MetaBoxOutput {
                         echo('<span>' . $options['label'] . '</span><br />');
                 }
                 foreach($options['values'] as $value => $label){
-                        echo('<label for="' . $name . '_' . $value . '"><input type="radio" name="' . $name . '" id="' . $name . '_' . $value . '" value="' . $value . '" class="' . $options['class'] . '" style="' . $options['style'] .'" ' . (($value == $options['value']) ? 'checked="checked" ' : '') . '/>' . $label . '</label><br />');
+
+                        $attributes = array(
+                                'type' => 'radio',
+                                'name' => $name,
+                                'id' => $name . '_' . $value,
+                                'class' => $options['class'],
+                                'style' => $options['style'],
+                                'value' => 'true',
+                        );
+
+                        if($value == $options['value']){
+                                $attributes['checked'] = 'checked';
+                        }
+
+                        echo('<label for="' . $name . '_' . $value . '"><input' . MetaBoxOutput::_build_attributes_string($attributes) . ' />' . $label . '</label><br />');
                 }
 
                 if(!empty($options['description'])){
@@ -156,6 +221,18 @@ class MetaBoxOutput {
 
         public function _is_assoc($array){
                 return array_keys($array) !== range(0, count($array) - 1);
+        }
+
+        public function _build_attributes_string($attributes = array()){
+                $attributeString = '';
+
+                if(!empty($attributes) && is_array($attributes) && MetaBoxOutput::_is_assoc($attributes)){
+                        foreach($attributes as $key => $value){
+                                $attributeString .= ' ' . $key . '="' . $value . '"';
+                        }
+                }
+
+                return $attributeString;
         }
 
 
