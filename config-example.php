@@ -1,5 +1,7 @@
 <?php
 
+global $BASECLASS;
+$BASECLASS = new Base('Test');
 
 new PostType('Demo', 'Demos', array('taxonomies'=>array('category')));
 

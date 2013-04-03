@@ -20,7 +20,7 @@ class Base {
 	 * Register main menu page
 	 */
 	function RegisterMenuPages(){
-		add_menu_page($this->title, $this->title, 'add_users', strtolower($this->title), array(&$this, 'PrintBasePage'), THEME_URL . '/include/admin-icon.png'); 
+		add_menu_page($this->title, $this->title, 'add_users', strtolower($this->title), array(&$this, 'PrintBasePage'), THEME_URL . '/toolkit/admin-icon.png'); 
 	}
 
 	/**

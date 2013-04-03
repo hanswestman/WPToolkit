@@ -14,11 +14,6 @@ function custom_autoload($class){
 
 spl_autoload_register('custom_autoload');
 
-global $BASECLASS;
-$BASECLASS = new Base('Test');
-
 require_once(THEME_PATH . 'config.php');
-
-
 
 ?>

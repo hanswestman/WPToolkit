@@ -17,7 +17,7 @@ abstract class ModuleBase {
 		
 		global $BASECLASS;
 		if($BASECLASS instanceof Base){
-			$this->helpfile = get_template_directory() . '/include/help/' . get_class($this) . '.html';
+			$this->helpfile = get_template_directory() . '/toolkit/help/' . get_class($this) . '.html';
 			$BASECLASS->RegisterModule($this->name, $this->version, $this->author, $this->description);
 			add_action('admin_menu', array(&$this, 'CreateMenuPage'));
 		}
