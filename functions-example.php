@@ -5,12 +5,14 @@ define('THEME_URL', get_template_directory_uri());
 
 add_theme_support('post-thumbnails');
 
-function __autoload($class){
-	$file = THEME_PATH. '/include/' . $class . '.class.php';
+function custom_autoload($class){
+	$file = THEME_PATH. '/toolkit/' . $class . '.class.php';
 	if(file_exists($file)){
 		include_once($file);
 	}
 }
+
+spl_autoload_register('custom_autoload');
 
 global $BASECLASS;
 $BASECLASS = new Base('Test');

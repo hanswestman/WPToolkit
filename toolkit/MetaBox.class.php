@@ -1,6 +1,6 @@
 <?php
 
-require_once(get_theme_root() . '/test/include/MetaBoxOutput.class.php');
+require_once(get_template_directory() . '/toolkit/MetaBoxOutput.class.php');
 
 /**
  * Creates metaboxes with various input types
