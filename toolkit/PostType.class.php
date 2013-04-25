@@ -24,14 +24,14 @@ class PostType extends ModuleBase {
 				'name' => '',
 				'singular_name' => ucfirst($name_singular),
 				'add_new' => __('Add new', THEME_TEXTDOMAIN),
-				'add_new_item' => sprintf(__('Add new %s', THEME_TEXTDOMAIN), $name_singular);
-				'edit_item' => sprintf(__('Edit %s', THEME_TEXTDOMAIN), $name_singular);
-				'new_item' => sprintf(__('New %s' , THEME_TEXTDOMAIN), $name_singular);
-				'all_items' => sprintf(__('All %s', THEME_TEXTDOMAIN), $name_plural);
-				'view_item' => sprintf(__('View %s', THEME_TEXTDOMAIN), $name_singular);
-				'search_items' => sprintf(__('Search %s', THEME_TEXTDOMAIN), $name_plural);
-				'not_found' => sprintf(__('No %s found', THEME_TEXTDOMAIN), $name_plural);
-				'not_found_in_trash' => sprintf(__('No %s found in trash', THEME_TEXTDOMAIN), $name_plural);
+				'add_new_item' => sprintf(__('Add new %s', THEME_TEXTDOMAIN), $name_singular),
+				'edit_item' => sprintf(__('Edit %s', THEME_TEXTDOMAIN), $name_singular),
+				'new_item' => sprintf(__('New %s' , THEME_TEXTDOMAIN), $name_singular),
+				'all_items' => sprintf(__('All %s', THEME_TEXTDOMAIN), $name_plural),
+				'view_item' => sprintf(__('View %s', THEME_TEXTDOMAIN), $name_singular),
+				'search_items' => sprintf(__('Search %s', THEME_TEXTDOMAIN), $name_plural),
+				'not_found' => sprintf(__('No %s found', THEME_TEXTDOMAIN), $name_plural),
+				'not_found_in_trash' => sprintf(__('No %s found in trash', THEME_TEXTDOMAIN), $name_plural),
 				'parent_item_colon' => '',
 				'menu_name' => ucfirst($name_plural),
 			),
