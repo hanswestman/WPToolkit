@@ -191,7 +191,7 @@ class MetaBox extends ModuleBase{
 	function ShowMetaBoxGroupEnd(&$meta){
 		echo('</fieldset>');
 		if(!empty($meta['add_more']) && $meta['add_more'] === true){
-			echo('<a href="#" class="js-add-another-field">Add another</a>');
+			echo('<a href="#" class="js-add-another-field">' . __('Add another', THEME_TEXTDOMAIN) . '</a>');
 		}
 		echo('</div>');
 	}

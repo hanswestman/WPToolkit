@@ -34,7 +34,7 @@ class Base {
 	<h2>Loaded modules</h2>
 
 	<table border="1" cellpadding="3" style="border-collapse:collapse;">
-		<tr><th>Module</th><th>Version</th><th>Author</th><th>Description</th></tr>
+		<tr><th><?php _e('Module', THEME_TEXTDOMAIN); ?></th><th><?php _e('Version', THEME_TEXTDOMAIN); ?></th><th><?php _e('Author', THEME_TEXTDOMAIN); ?></th><th><?php _e('Description',  THEME_TEXTDOMAIN); ?></th></tr>
 		<?php foreach($this->modules as $module => $data): ?>
 			<tr><td><?php echo($module); ?></td><td><?php echo($data['version']); ?></td><td><?php echo($data['author']); ?></td><td><?php echo($data['description']); ?></td></tr>
 		<?php endforeach; ?>

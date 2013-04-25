@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPToolkit\n"
+"POT-Creation-Date: 2013-04-25 23:47+0100\n"
+"PO-Revision-Date: 2013-04-25 23:47+0100\n"
+"Last-Translator: Hans Westman <admin@hanswestman.se>\n"
+"Language-Team: Hans Westman <hanswestman@gmail.com>\n"
+"Language: Svenska\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../AjaxAPI.class.php:28
+msgid "Missing argument \"command\""
+msgstr "Saknar argumentet \"command\""
+
+#: ../AjaxAPI.class.php:39
+msgid "The command does not exist as a method"
+msgstr "Kommandot existerar inte som en metod"
+
+#: ../AjaxAPI.class.php:43
+msgid "The command does not exist"
+msgstr "Kommandot finns inte"
+
+#: ../Base.class.php:37
+msgid "Module"
+msgstr "Modul"
+
+#: ../Base.class.php:37
+msgid "Version"
+msgstr "Version"
+
+#: ../Base.class.php:37
+msgid "Author"
+msgstr "Författare"
+
+#: ../Base.class.php:37
+msgid "Description"
+msgstr "Beskrivning"
+
+#: ../MetaBox.class.php:194
+msgid "Add another"
+msgstr "Lägg till en ny"
+
+#: ../ModuleBase.class.php:33
+msgid "About"
+msgstr "Om"
+
+#: ../PostType.class.php:26
+msgid "Add new"
+msgstr "Lägg till ny"
+
+#: ../PostType.class.php:27
+#, php-format
+msgid "Add new %s"
+msgstr "Lägg till ny %s"
+
+#: ../PostType.class.php:28
+#, php-format
+msgid "Edit %s"
+msgstr "Redigera %s"
+
+#: ../PostType.class.php:29
+#, php-format
+msgid "New %s"
+msgstr "Ny %s"
+
+#: ../PostType.class.php:30
+#, php-format
+msgid "All %s"
+msgstr "Alla %s"
+
+#: ../PostType.class.php:31
+#, php-format
+msgid "View %s"
+msgstr "Visa %s"
+
+#: ../PostType.class.php:32
+#, php-format
+msgid "Search %s"
+msgstr "Sök %s"
+
+#: ../PostType.class.php:33
+#, php-format
+msgid "No %s found"
+msgstr "Inga %s funna"
+
+#: ../PostType.class.php:34
+#, php-format
+msgid "No %s found in trash"
+msgstr "Inga %s funna i soptunnan"

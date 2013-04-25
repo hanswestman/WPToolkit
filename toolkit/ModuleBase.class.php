@@ -30,7 +30,7 @@ abstract class ModuleBase {
 	function CreateMenuPage(){
 		global $BASECLASS;
 		if(file_exists($this->helpfile)){
-			add_submenu_page(strtolower($BASECLASS->title), $this->name . ' About', $this->name, 'manage_options', strtolower($BASECLASS->title) . '-' . preg_replace('/\s/', '', strtolower($this->name)), array(&$this, 'ShowMenuPage'));
+			add_submenu_page(strtolower($BASECLASS->title), $this->name . ' ' . __('About', THEME_TEXTDOMAIN), $this->name, 'manage_options', strtolower($BASECLASS->title) . '-' . preg_replace('/\s/', '', strtolower($this->name)), array(&$this, 'ShowMenuPage'));
 		}
 	}
 

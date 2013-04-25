@@ -36,11 +36,11 @@ class AjaxAPI extends ModuleBase {
 					call_user_func_array(array($_REQUEST['command_class'], $_REQUEST['command']), array());
 				}
 				else{
-					AjaxAPI::ReturnError(__('The command does not exist as a method'));
+					AjaxAPI::ReturnError(__('The command does not exist as a method', THEME_TEXTDOMAIN));
 				}
 			}
 			else{
-				AjaxAPI::ReturnError(__('The command does not exist'));
+				AjaxAPI::ReturnError(__('The command does not exist', THEME_TEXTDOMAIN));
 			}
 		}
 	}
