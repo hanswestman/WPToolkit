@@ -201,13 +201,98 @@ class MetaBoxOutput {
                 }
                 echo('</p>');
         }
+		
+		/**
+		* Checkbox
+		* Supports options: label, values, default, description, class, style
+		* @param object [$post] post-object.
+		* @param string [$name] name and ID for input.
+		* @param array [$options] associative array with options.
+		* @author Hans Westman <hans@thefarm.se>
+		*/
+		public function checkbox($post, $name, $metaName, $options){
+				$options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
 
+				echo('<p>');
+				if(!empty($options['label'])){
+						echo('<span>' . $options['label'] . '</span><br />');
+				}
+				foreach($options['values'] as $value => $label){
 
+						$attributes = array(
+								'type' => 'checkbox',
+								'name' => $name . '[]',
+								'id' => $name . '_' . $value,
+								'class' => $options['class'],
+								'style' => $options['style'],
+								'value' => $value,
+						);
+						
+						if(in_array($value, $options['value'])){
+								$attributes['checked'] = 'checked';
+						}
 
+						echo('<label for="' . $name . '_' . $value . '"><input' . MetaBoxOutput::_build_attributes_string($attributes) . ' /> ' . $label . '</label><br />');
+				}
 
+				if(!empty($options['description'])){
+						echo('<br /><em>' . $options['description'] . '</em>');
+				}
+				echo('</p>');
+		}
+
+		/**
+         * Color input
+         * Supports options: label, default, description, class, style, size, placeholder
+         * @param object [$post] post-object.
+         * @param string [$name] name and ID for input.
+         * @param array [$options] associative array with options.
+         * @author Hans Westman <hans@thefarm.se>
+         */
+        public function colorpicker($post, $name, $metaName, $options){
+                $options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
+
+                echo('<p>');
+                if(!empty($options['label'])){
+                        echo('<label for="' . $name . '">' . $options['label'] . '</label><br />');
+                }
+                $attributes = array(
+                        'type' => 'text',
+                        'name' => $name,
+                        'id' => $name,
+                        'class' => $options['class'] . ' js-wptoolkit-colorpicker',
+                        'value' => $options['value'],
+                        'style' => $options['style'],
+                        'placeholder' => $options['placeholder'],
+                );
+
+                if(!empty($options['validate-pattern'])){
+                        $attributes['data-pattern'] = $options['validate-pattern'];
+                }
+
+                echo('<input' . MetaBoxOutput::_build_attributes_string($attributes) . ' />');
+                if(!empty($options['description'])){
+                        echo('<br /><em>' . $options['description'] . '</em>');
+                }
+                echo('</p>');
+        }
+		
+
+		/**
+		 * Internal helper function to set default values 
+		 * @author Hans Westman <hanswestman@gmail.com>
+		 * @param array $options
+		 * @param object $post
+		 * @param string $metaName
+		 * @return array
+		 */
         public function _set_defaults($options, $post, $metaName){
                 $value = get_post_meta($post->ID, $metaName . '_value', true);
 
+				if(isset($options['required']) && $options['required'] === true){
+					$options['class'] .= ' required';
+				}
+				
                 return array_merge(array(
                         'size' =>  (empty($options['size'])) ? 25 : $options['size'],
                         'cols' =>  (empty($options['cols'])) ? 80 : $options['cols'],
@@ -219,10 +304,21 @@ class MetaBoxOutput {
                 ), $options);
         }
 
+		/**
+		 * Check if array is associative
+		 * @author Hans Westman <hanswestman@gmail.com>
+		 * @param array $array
+		 * @return boolean
+		 */
         public function _is_assoc($array){
                 return array_keys($array) !== range(0, count($array) - 1);
         }
 
+		/**
+		 * Internal helper function that builds a attribute string from an array of attributes and values.
+		 * @param array $attributes Associative array of attributes and values
+		 * @return string
+		 */
         public function _build_attributes_string($attributes = array()){
                 $attributeString = '';
 

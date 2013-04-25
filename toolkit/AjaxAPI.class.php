@@ -8,9 +8,9 @@
 class AjaxAPI extends ModuleBase {
 
 	var $name = 'Ajax API';
-	var $version = '0.6';
+	var $version = '1.0';
 	var $author = 'Hans Westman';
-	var $description = '';
+	var $description = 'Enables an Ajax API';
 
 	function __construct(){
 		add_action('wp_ajax_AjaxAPI', array(&$this, 'Run'));

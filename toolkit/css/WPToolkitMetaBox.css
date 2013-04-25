@@ -1,0 +1,29 @@
+input.invalid {
+	border: 1px solid red;
+}
+
+textarea.invalid {
+	border: 1px solid red;
+}
+
+.wp-toolkit .columns {clear:both;}
+.wp-toolkit .column {float: left; margin-right: 1%;}
+.wp-toolkit .column:first-child {margin-left: 1%;}
+.wp-toolkit .column.full-width {width:97%;}
+.wp-toolkit .column.half-width {width:48%;}
+.wp-toolkit .column.third-width {width:31.5%;}
+.wp-toolkit .column.fourth-width {width:23.5%;}
+
+.wp-toolkit .column input[type="text"],
+.wp-toolkit .column input[type="password"],
+.wp-toolkit .column select,
+.wp-toolkit .column textarea {
+    width:98%;
+    margin-left:1%;
+}
+
+@media (max-width: 1000px){
+    .wp-toolkit .column {
+        width: 98% !important;
+    }
+}

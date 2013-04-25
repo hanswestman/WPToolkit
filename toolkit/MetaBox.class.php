@@ -11,9 +11,9 @@ require_once(get_template_directory() . '/toolkit/MetaBoxOutput.class.php');
 class MetaBox extends ModuleBase{
 
 	var $name = 'Metabox';
-	var $version = '1.2';
+	var $version = '1.6';
 	var $author = 'Hans Westman';
-	var $description = '';
+	var $description = 'Adds metaboxes with various types of input fields.';
 
 	var $config;
 
@@ -56,14 +56,29 @@ class MetaBox extends ModuleBase{
 		$metaBoxes =$this->config;
 		$metas = $metaBoxes[$type][$section];
 		foreach($metas as $metaName => $meta){
-			if(method_exists('MetaBoxOutput', $meta['type'])){
-				$name = $type . '_' . preg_replace('/\s/', '_', $section) . '_' . $metaName;
-
-				//Added with validation
-				if(isset($meta['required']) && $meta['required'] === true){
-					$meta['class'] .= ' required';
+			
+			if($meta['type'] == 'group'){
+				$limit = (!empty($meta['limit'])) ? $meta['limit'] : 3;
+				MetaBox::ShowMetaBoxGroupStart($limit);
+				
+				if(!empty($meta['fields'])){
+					
+					//TODO: Fix these
+					//Get values for each field
+					//Multiply fieldsets for each value
+					//Insert this value into it.
+					
+					
+					foreach($meta['fields'] as $newID => $field){
+						$name = $type . '_' . preg_replace('/\s/', '_', $section) . '_' . $newID;
+						call_user_func_array(array('MetaBoxOutput', $field['type']), array($post, $name . '[]', $newID, $field));
+					}
 				}
-
+				
+				MetaBox::ShowMetaBoxGroupEnd($meta);
+			}
+			else if(method_exists('MetaBoxOutput', $meta['type'])){
+				$name = $type . '_' . preg_replace('/\s/', '_', $section) . '_' . $metaName;
 				call_user_func_array(array('MetaBoxOutput', $meta['type']), array($post, $name, $metaName, $meta));
 			}
 		}
@@ -113,10 +128,72 @@ class MetaBox extends ModuleBase{
 			}
 		}
 	}
+	
+	public function GetValue($post_id, $field_name, $default = ''){
+		/*if(!empty($this->config[$post_type])){ //Om man vill behandla returdatan speciellt enligt config
+			foreach($this->config[$post_type] as $metabox){
+				if(isset($metabox[$field_name])){
+					$config = $metabox[$field_name];
+				}
+			}
+		}*/
+
+		$value = get_post_meta($post_id, $field_name . '_value', true);
+		return (empty($value)) ? $default : $value;
+
+
+		return $default;
+	}
 
 	function EnqueueScripts(){
         wp_enqueue_script('validate-form-js', THEME_URL . '/toolkit/js/validate.js', array('jquery'), '1.0', true);
-        wp_enqueue_style('validate-form-css', THEME_URL . '/toolkit/css/validate.css', false, '1.0'); 
+		wp_enqueue_script('WPToolkitMetabox-js', THEME_URL . '/toolkit/js/WPToolkitMetaBox.js', array('jquery'), '1.0', true);
+        wp_enqueue_style('WPToolkitMetabox-css', THEME_URL . '/toolkit/css/WPToolkitMetabox.css', false, '1.0');
+		
+		$screen = get_current_screen();
+		if(!empty($screen->post_type)){
+			$activePostType = $screen->post_type;
+			$metaboxes = $this->config[$activePostType];
+			if(!empty($metaboxes)){
+				foreach($metaboxes as $metabox){
+					if(!empty($metabox)){
+						foreach($metabox as $fields){
+							switch($fields['type']){
+								case 'colorpicker':
+									wp_enqueue_script('wp-color-picker');
+									wp_enqueue_style('wp-color-picker');
+									break;
+							}
+							
+							if(!empty($fields['js'])){
+								foreach($fields['js'] as $script){
+									wp_enqueue_script($script);
+								}
+							}
+							else if(!empty($fields['css'])){
+								foreach($fields['css'] as $style){
+									wp_enqueue_style($style);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	function ShowMetaBoxGroupStart($limit = 3){
+		echo('<div data-field-limit="' . $limit . '">');
+		echo('<fieldset style="border: 1px solid #000;">');
+		echo('<legend>Title 1</legend>');
+	}
+	
+	function ShowMetaBoxGroupEnd(&$meta){
+		echo('</fieldset>');
+		if(!empty($meta['add_more']) && $meta['add_more'] === true){
+			echo('<a href="#" class="js-add-another-field">Add another</a>');
+		}
+		echo('</div>');
 	}
 }
 

@@ -10,7 +10,7 @@ class PostType extends ModuleBase {
 	var $name = 'Post Type';
 	var $version = '1.0';
 	var $author = 'Hans Westman';
-	var $description = '';
+	var $description = 'Makes it easy to add a new custom post type, just one command easy is needed.';
 
 	var $name_singular;
 	var $name_plural;
