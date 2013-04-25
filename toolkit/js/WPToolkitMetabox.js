@@ -18,6 +18,6 @@
 		}
 	});
 	
-	 $('.js-wptoolkit-colorpicker').wpColorPicker();
+	 $('.js-wptoolkit-colorpicker').each(function(){$(this).wpColorPicker();});
 	
 })(jQuery);
