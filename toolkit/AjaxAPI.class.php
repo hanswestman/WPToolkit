@@ -8,13 +8,15 @@
 class AjaxAPI extends ModuleBase {
 
 	var $name = 'Ajax API';
-	var $version = '1.0';
+	var $version = '1.1';
 	var $author = 'Hans Westman';
 	var $description = 'Enables an Ajax API';
 
 	function __construct(){
 		add_action('wp_ajax_AjaxAPI', array(&$this, 'Run'));
 		add_action('wp_ajax_nopriv_AjaxAPI', array(&$this, 'Run'));
+		add_action('wp_head', array(&$this, 'PrintAjaxUrl'));
+		add_action('admin_head', array(&$this, 'PrintAjaxUrl')); 
 
 		parent::__construct();
 	}
@@ -67,6 +69,13 @@ class AjaxAPI extends ModuleBase {
 	public function ReturnError($message){
 		AjaxAPI::ReturnJSON(false, false, $message);
 	}
+
+	/**
+	 * Helpful function that prints the Ajax URL in <HEAD> for later use.
+	 */
+	public function PrintAjaxUrl(){
+		echo("\n\n<script type=\"text/javascript\">\n\n\nwindow.wptoolkit = {ajaxUrl: '" . get_site_url() . "/wp-admin/admin-ajax.php'};\n\n</script>");
+	} 
 
 }
 
