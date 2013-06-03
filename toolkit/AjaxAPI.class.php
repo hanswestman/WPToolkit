@@ -8,7 +8,7 @@
 class AjaxAPI extends ModuleBase {
 
 	var $name = 'Ajax API';
-	var $version = '1.1';
+	var $version = '1.2';
 	var $author = 'Hans Westman';
 	var $description = 'Enables an Ajax API';
 
@@ -54,12 +54,16 @@ class AjaxAPI extends ModuleBase {
 	 * @param string $message
 	 */
 	public function ReturnJSON($status = true, $data = array(), $message = ''){
+		header('content-type: application/json; charset=utf-8');
+
 		if(empty($message)){
-			echo(json_encode(array('status'=>$status, 'data'=>$data))); die();
+			echo(json_encode(array('status'=>$status, 'data'=>$data)));
 		}
 		else{
-			echo(json_encode(array('status'=>$status, 'data'=>$data, 'message' => $message))); die();
+			echo(json_encode(array('status'=>$status, 'data'=>$data, 'message' => $message)));
 		}
+
+		die();
 	}
 
 	/**
