@@ -8,9 +8,11 @@
 class AjaxAPI extends ModuleBase {
 
 	var $name = 'Ajax API';
-	var $version = '1.2';
+	var $version = '1.3';
 	var $author = 'Hans Westman';
 	var $description = 'Enables an Ajax API';
+
+	var $allowJSONP = false;
 
 	function __construct(){
 		add_action('wp_ajax_AjaxAPI', array(&$this, 'Run'));
@@ -48,6 +50,14 @@ class AjaxAPI extends ModuleBase {
 	}
 
 	/**
+	 * Allow/disallow JSONP formatted data.
+	 * @param boolean $allow
+	 */
+	function JSONP($allow = true){
+		$this->allowJSONP = $allow;
+	}
+
+	/**
 	 * Public function to return JSON formatted data. Returns status (true/false), data and maybe message.
 	 * @param boolean $status
 	 * @param array/string $data
@@ -56,11 +66,19 @@ class AjaxAPI extends ModuleBase {
 	public function ReturnJSON($status = true, $data = array(), $message = ''){
 		header('content-type: application/json; charset=utf-8');
 
+		if($this->allowJSONP && !empty($_REQUEST['callback'])){
+			echo($_REQUEST['callback'] . '(');
+		}
+
 		if(empty($message)){
 			echo(json_encode(array('status'=>$status, 'data'=>$data)));
 		}
 		else{
 			echo(json_encode(array('status'=>$status, 'data'=>$data, 'message' => $message)));
+		}
+
+		if($this->allowJSONP && !empty($_REQUEST['callback'])){
+			echo(')');	
 		}
 
 		die();
