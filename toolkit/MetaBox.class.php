@@ -11,7 +11,7 @@ require_once(get_template_directory() . '/toolkit/MetaBoxOutput.class.php');
 class MetaBox extends ModuleBase{
 
 	var $name = 'Metabox';
-	var $version = '1.6';
+	var $version = '1.7';
 	var $author = 'Hans Westman';
 	var $description = 'Adds metaboxes with various types of input fields.';
 
@@ -25,6 +25,7 @@ class MetaBox extends ModuleBase{
 
 		add_action('add_meta_boxes', array(&$this, 'RegisterMetaBoxes'));
 		add_action('save_post', array(&$this, 'SaveMetaValues'));
+		add_action('delete_post', array(&$this, 'DeleteMetaValues'));
 		add_action('admin_enqueue_scripts', array(&$this, 'EnqueueScripts'));
 
 		parent::__construct();
@@ -86,17 +87,17 @@ class MetaBox extends ModuleBase{
 	
 	/**
 	 * Saving values inputted in the metaboxes
-	 * @param integer $postId
+	 * @param integer $post_id
 	 * @return null
 	 */
-	function SaveMetaValues($postId){
+	function SaveMetaValues($post_id){
 		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
 			return;
 		}
 		if(empty($_POST['MetaBox_nonce']) || !wp_verify_nonce($_POST['MetaBox_nonce'], plugin_basename(__FILE__))){
 			return;
 		}
-		if(!current_user_can('edit_page', $postId)){
+		if(!current_user_can('edit_page', $post_id)){
 			return;
 		}
 
@@ -110,18 +111,18 @@ class MetaBox extends ModuleBase{
 			foreach($section as $metaName => $meta){
 				$inputName = $_POST['post_type'] . '_' . preg_replace('/\s/', '_', $sectionName) . '_' . $metaName;
 				if(isset($_POST[$inputName])){
-					$oldValue = get_post_meta($postId, $metaName . '_value', true);
+					$oldValue = get_post_meta($post_id, $metaName . '_value', true);
 					if(empty($oldValue)){
 						if(!empty($_POST[$inputName])){
-							add_post_meta($postId, $metaName . '_value', $_POST[$inputName]);
+							add_post_meta($post_id, $metaName . '_value', $_POST[$inputName]);
 						}
 					}
 					else{
 						if(empty($_POST[$inputName])){
-							delete_post_meta($postId, $metaName . '_value');
+							delete_post_meta($post_id, $metaName . '_value');
 						}
 						else{
-							update_post_meta($postId, $metaName . '_value', $_POST[$inputName]);
+							update_post_meta($post_id, $metaName . '_value', $_POST[$inputName]);
 						}
 					}
 				}
@@ -145,6 +146,7 @@ class MetaBox extends ModuleBase{
 		return $default;
 	}
 
+	//TODO: Docblock här
 	function EnqueueScripts(){
         wp_enqueue_script('validate-form-js', THEME_URL . '/toolkit/js/validate.js', array('jquery'), '1.0', true);
 		wp_enqueue_script('WPToolkitMetabox-js', THEME_URL . '/toolkit/js/WPToolkitMetaBox.js', array('jquery'), '1.0', true);
@@ -182,18 +184,25 @@ class MetaBox extends ModuleBase{
 		}
 	}
 	
+	//TODO: Docblock här
 	function ShowMetaBoxGroupStart($limit = 3){
 		echo('<div data-field-limit="' . $limit . '">');
 		echo('<fieldset style="border: 1px solid #000;">');
 		echo('<legend>Title 1</legend>');
 	}
 	
+	//TODO: Docblock här
 	function ShowMetaBoxGroupEnd(&$meta){
 		echo('</fieldset>');
 		if(!empty($meta['add_more']) && $meta['add_more'] === true){
 			echo('<a href="#" class="js-add-another-field">' . __('Add another', THEME_TEXTDOMAIN) . '</a>');
 		}
 		echo('</div>');
+	}
+
+	//TODO: Docblock här
+	function DeleteMetaValues($post_id){
+		//TODO: Ta bort alla custom värden här
 	}
 }
 
