@@ -155,9 +155,8 @@ class MetaBox extends ModuleBase{
 		$screen = get_current_screen();
 		if(!empty($screen->post_type)){
 			$activePostType = $screen->post_type;
-			$metaboxes = $this->config[$activePostType];
-			if(!empty($metaboxes)){
-				foreach($metaboxes as $metabox){
+			if(!empty($this->config[$activePostType])){
+				foreach($this->config[$activePostType] as $metabox){
 					if(!empty($metabox)){
 						foreach($metabox as $fields){
 							switch($fields['type']){
