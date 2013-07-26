@@ -164,6 +164,10 @@ class MetaBox extends ModuleBase{
 									wp_enqueue_script('wp-color-picker');
 									wp_enqueue_style('wp-color-picker');
 									break;
+								case 'date':
+									wp_enqueue_script('jquery-ui-datepicker');	
+									wp_enqueue_style('jquery-ui-lightness', THEME_URL . '/toolkit/css/ui-lightness/jquery-ui-1.10.3.custom.min.css', array(), '1.10.3');
+									break;
 							}
 							
 							if(!empty($fields['js'])){

@@ -19,5 +19,6 @@
 	});
 	
 	 $('.js-wptoolkit-colorpicker').each(function(){$(this).wpColorPicker();});
+	 $('.js-wptoolkit-datepicker').datepicker({ dateFormat: "yy-mm-dd" });
 	
 })(jQuery);

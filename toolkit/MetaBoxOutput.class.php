@@ -276,6 +276,42 @@ class MetaBoxOutput {
 				}
 				echo('</p>');
 		}
+
+		/**
+		 * Datepicker input
+		 * Supports options: label, default, description, class, style, size, placeholder
+		 * @param object [$post] post-object.
+		 * @param string [$name] name and ID for input.
+		 * @param array [$options] associative array with options.
+		 * @author Hans Westman <hans@thefarm.se>
+		 */
+		public function date($post, $name, $metaName, $options){
+				$options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
+
+				echo('<p>');
+				if(!empty($options['label'])){
+						echo('<label for="' . $name . '">' . $options['label'] . '</label><br />');
+				}
+				$attributes = array(
+						'type' => 'text',
+						'name' => $name,
+						'id' => $name,
+						'class' => $options['class'] . ' js-wptoolkit-datepicker',
+						'value' => $options['value'],
+						'style' => $options['style'],
+						'placeholder' => $options['placeholder'],
+				);
+
+				if(!empty($options['validate-pattern'])){
+						$attributes['data-pattern'] = $options['validate-pattern'];
+				}
+
+				echo('<input' . MetaBoxOutput::_build_attributes_string($attributes) . ' />');
+				if(!empty($options['description'])){
+						echo('<br /><em>' . $options['description'] . '</em>');
+				}
+				echo('</p>');
+		}
 		
 
 		/**
