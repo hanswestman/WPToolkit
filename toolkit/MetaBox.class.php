@@ -11,7 +11,7 @@ require_once(get_template_directory() . '/toolkit/MetaBoxOutput.class.php');
 class MetaBox extends ModuleBase{
 
 	var $name = 'Metabox';
-	var $version = '1.7';
+	var $version = '1.7.1';
 	var $author = 'Hans Westman';
 	var $description = 'Adds metaboxes with various types of input fields.';
 
@@ -111,19 +111,11 @@ class MetaBox extends ModuleBase{
 			foreach($section as $metaName => $meta){
 				$inputName = $_POST['post_type'] . '_' . preg_replace('/\s/', '_', $sectionName) . '_' . $metaName;
 				if(isset($_POST[$inputName])){
-					$oldValue = get_post_meta($post_id, $metaName . '_value', true);
-					if(empty($oldValue)){
-						if(!empty($_POST[$inputName])){
-							add_post_meta($post_id, $metaName . '_value', $_POST[$inputName]);
-						}
+					if(empty($_POST[$inputName])){
+						delete_post_meta($post_id, $metaName . '_value');
 					}
 					else{
-						if(empty($_POST[$inputName])){
-							delete_post_meta($post_id, $metaName . '_value');
-						}
-						else{
-							update_post_meta($post_id, $metaName . '_value', $_POST[$inputName]);
-						}
+						update_post_meta($post_id, $metaName . '_value', $_POST[$inputName]);
 					}
 				}
 			}
