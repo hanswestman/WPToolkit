@@ -111,19 +111,11 @@ class MetaBox extends ModuleBase{
 			foreach($section as $metaName => $meta){
 				$inputName = $_POST['post_type'] . '_' . preg_replace('/\s/', '_', $sectionName) . '_' . $metaName;
 				if(isset($_POST[$inputName])){
-					$oldValue = get_post_meta($post_id, $metaName . '_value', true);
-					if(empty($oldValue)){
-						if(!empty($_POST[$inputName])){
-							add_post_meta($post_id, $metaName . '_value', $_POST[$inputName]);
-						}
+					if(empty($_POST[$inputName])){
+						delete_post_meta($post_id, $metaName . '_value');
 					}
 					else{
-						if(empty($_POST[$inputName])){
-							delete_post_meta($post_id, $metaName . '_value');
-						}
-						else{
-							update_post_meta($post_id, $metaName . '_value', $_POST[$inputName]);
-						}
+						update_post_meta($post_id, $metaName . '_value', $_POST[$inputName]);
 					}
 				}
 			}
