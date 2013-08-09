@@ -15,7 +15,7 @@ class MetaBoxOutput {
 		 * @param array [$options] associative array with options.
 		 * @author Hans Westman <hans@thefarm.se>
 		 */
-		public function text($post, $name, $metaName, $options){
+		static function text($post, $name, $metaName, $options){
 				$options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
 
 				echo('<p>');
@@ -51,7 +51,7 @@ class MetaBoxOutput {
 		 * @param array [$options] associative array with options.
 		 * @author Hans Westman <hans@thefarm.se>
 		 */
-		public function textarea($post, $name, $metaName, $options){
+		static function textarea($post, $name, $metaName, $options){
 				$options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
 
 				echo('<p>');
@@ -88,7 +88,7 @@ class MetaBoxOutput {
 		 * @param array [$options] associative array with options.
 		 * @author Hans Westman <hans@thefarm.se>
 		 */
-		public function select($post, $name, $metaName, $options){
+		static function select($post, $name, $metaName, $options){
 				$options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
 
 				echo('<p>');
@@ -133,7 +133,7 @@ class MetaBoxOutput {
 		 * @param array [$options] associative array with options.
 		 * @author Hans Westman <hans@thefarm.se>
 		 */
-		public function boolean($post, $name, $metaName, $options){
+		static function boolean($post, $name, $metaName, $options){
 				$options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
 
 				echo('<p>');
@@ -171,7 +171,7 @@ class MetaBoxOutput {
 		 * @param array [$options] associative array with options.
 		 * @author Hans Westman <hans@thefarm.se>
 		 */
-		public function radio($post, $name, $metaName, $options){
+		static function radio($post, $name, $metaName, $options){
 				$options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
 
 				echo('<p>');
@@ -210,7 +210,7 @@ class MetaBoxOutput {
 		* @param array [$options] associative array with options.
 		* @author Hans Westman <hans@thefarm.se>
 		*/
-		public function checkbox($post, $name, $metaName, $options){
+		static function checkbox($post, $name, $metaName, $options){
 				$options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
 
 				echo('<p>');
@@ -249,7 +249,7 @@ class MetaBoxOutput {
 		 * @param array [$options] associative array with options.
 		 * @author Hans Westman <hans@thefarm.se>
 		 */
-		public function colorpicker($post, $name, $metaName, $options){
+		static function colorpicker($post, $name, $metaName, $options){
 				$options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
 
 				echo('<p>');
@@ -285,7 +285,7 @@ class MetaBoxOutput {
 		 * @param array [$options] associative array with options.
 		 * @author Hans Westman <hans@thefarm.se>
 		 */
-		public function date($post, $name, $metaName, $options){
+		static function date($post, $name, $metaName, $options){
 				$options = MetaBoxOutput::_set_defaults($options, $post, $metaName);
 
 				echo('<p>');
@@ -322,7 +322,7 @@ class MetaBoxOutput {
 		 * @param string $metaName
 		 * @return array
 		 */
-		public function _set_defaults($options, $post, $metaName){
+		static function _set_defaults($options, $post, $metaName){
 				$value = get_post_meta($post->ID, $metaName . '_value', true);
 
 				if(isset($options['required']) && $options['required'] === true){
@@ -346,7 +346,7 @@ class MetaBoxOutput {
 		 * @param array $array
 		 * @return boolean
 		 */
-		public function _is_assoc($array){
+		static function _is_assoc($array){
 				return array_keys($array) !== range(0, count($array) - 1);
 		}
 
@@ -355,7 +355,7 @@ class MetaBoxOutput {
 		 * @param array $attributes Associative array of attributes and values
 		 * @return string
 		 */
-		public function _build_attributes_string($attributes = array()){
+		static function _build_attributes_string($attributes = array()){
 				$attributeString = '';
 
 				if(!empty($attributes) && is_array($attributes) && MetaBoxOutput::_is_assoc($attributes)){

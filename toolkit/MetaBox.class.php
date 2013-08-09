@@ -11,7 +11,7 @@ require_once(get_template_directory() . '/toolkit/MetaBoxOutput.class.php');
 class MetaBox extends ModuleBase{
 
 	var $name = 'Metabox';
-	var $version = '1.7';
+	var $version = '1.7.1';
 	var $author = 'Hans Westman';
 	var $description = 'Adds metaboxes with various types of input fields.';
 
