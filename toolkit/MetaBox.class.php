@@ -141,7 +141,7 @@ class MetaBox extends ModuleBase{
 	//TODO: Docblock här
 	function EnqueueScripts(){
         wp_enqueue_script('validate-form-js', THEME_URL . '/toolkit/js/validate.js', array('jquery'), '1.0', true);
-		wp_enqueue_script('WPToolkitMetabox-js', THEME_URL . '/toolkit/js/WPToolkitMetaBox.js', array('jquery'), '1.0', true);
+		wp_enqueue_script('WPToolkitMetabox-js', THEME_URL . '/toolkit/js/WPToolkitMetabox.js', array('jquery'), '1.0', true);
         wp_enqueue_style('WPToolkitMetabox-css', THEME_URL . '/toolkit/css/WPToolkitMetabox.css', false, '1.0');
 		
 		$screen = get_current_screen();
